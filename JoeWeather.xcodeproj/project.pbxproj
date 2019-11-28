@@ -80,6 +80,13 @@
 		D8D1BE3E238349EB002F1F84 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8464DB8221663FF00ED68EB /* RxSwift.framework */; };
 		D8E20AB4238C95A600F1A53A /* NiblessSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E20AB3238C95A600F1A53A /* NiblessSplitViewController.swift */; };
 		D8F1C6392390424800CEC370 /* NiblessTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C6382390424800CEC370 /* NiblessTabBarController.swift */; };
+		D8F1C63D2390516300CEC370 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C63C2390516300CEC370 /* WeatherViewController.swift */; };
+		D8F1C63F2390537900CEC370 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C63E2390537900CEC370 /* WeatherViewModel.swift */; };
+		D8F1C6412390539700CEC370 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C6402390539700CEC370 /* WeatherView.swift */; };
+		D8F1C6432390748500CEC370 /* ContentStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C6422390748500CEC370 /* ContentStateViewController.swift */; };
+		D8F1C645239074EC00CEC370 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C644239074EC00CEC370 /* LoadingViewController.swift */; };
+		D8F1C6472390756500CEC370 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C6462390756500CEC370 /* ErrorViewController.swift */; };
+		D8F1C649239075F700CEC370 /* UIViewController+Containment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1C648239075F700CEC370 /* UIViewController+Containment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +234,13 @@
 		D8D1BE3B238344A5002F1F84 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
 		D8E20AB3238C95A600F1A53A /* NiblessSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiblessSplitViewController.swift; sourceTree = "<group>"; };
 		D8F1C6382390424800CEC370 /* NiblessTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiblessTabBarController.swift; sourceTree = "<group>"; };
+		D8F1C63C2390516300CEC370 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		D8F1C63E2390537900CEC370 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		D8F1C6402390539700CEC370 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		D8F1C6422390748500CEC370 /* ContentStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStateViewController.swift; sourceTree = "<group>"; };
+		D8F1C644239074EC00CEC370 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		D8F1C6462390756500CEC370 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
+		D8F1C648239075F700CEC370 /* UIViewController+Containment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Containment.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,6 +511,7 @@
 				D854058722C96CE100D80F03 /* UITableView+ReusableView.swift */,
 				D8C849F322D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift */,
 				D8F1C6382390424800CEC370 /* NiblessTabBarController.swift */,
+				D8F1C648239075F700CEC370 /* UIViewController+Containment.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -508,6 +523,10 @@
 				D8B7AFEB221A651B00527BC1 /* AddLocationViewController.swift */,
 				D8B7AFD02218872E00527BC1 /* LocationListViewController.swift */,
 				D8C849E622D17AA5003624F8 /* ForecastViewController.swift */,
+				D8F1C63C2390516300CEC370 /* WeatherViewController.swift */,
+				D8F1C6422390748500CEC370 /* ContentStateViewController.swift */,
+				D8F1C644239074EC00CEC370 /* LoadingViewController.swift */,
+				D8F1C6462390756500CEC370 /* ErrorViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -520,6 +539,7 @@
 				D854058322C95C3A00D80F03 /* LocationListViewModel.swift */,
 				D8C849EA22D17AC4003624F8 /* ForecastViewModel.swift */,
 				D8C849EE22D18D74003624F8 /* DayViewModel.swift */,
+				D8F1C63E2390537900CEC370 /* WeatherViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -533,6 +553,7 @@
 				D8B7AFD4221887B100527BC1 /* LocationListView.swift */,
 				D8C849E822D17AB6003624F8 /* ForecastView.swift */,
 				D8C849EC22D18D14003624F8 /* DayView.swift */,
+				D8F1C6402390539700CEC370 /* WeatherView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -853,17 +874,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F1C6412390539700CEC370 /* WeatherView.swift in Sources */,
 				D840E5AF22BF096000C39AD4 /* WelcomeViewController.swift in Sources */,
+				D8F1C645239074EC00CEC370 /* LoadingViewController.swift in Sources */,
 				D86DA83A22BED2150056322D /* Coordinator.swift in Sources */,
 				D8C849ED22D18D14003624F8 /* DayView.swift in Sources */,
 				D8B7AFD12218872E00527BC1 /* LocationListViewController.swift in Sources */,
 				D840E5E522C1711B00C39AD4 /* MainFactory.swift in Sources */,
+				D8F1C6472390756500CEC370 /* ErrorViewController.swift in Sources */,
 				D8B7AFF0221A65B900527BC1 /* AddLocationView.swift in Sources */,
 				D86DA83822BED1980056322D /* MainCoodinator.swift in Sources */,
 				D854058B22C96D4600D80F03 /* LocationCell.swift in Sources */,
 				D840E5B322BF0A3000C39AD4 /* WelcomeView.swift in Sources */,
 				D8B7AFD5221887B100527BC1 /* LocationListView.swift in Sources */,
 				D8B7AFEC221A651B00527BC1 /* AddLocationViewController.swift in Sources */,
+				D8F1C6432390748500CEC370 /* ContentStateViewController.swift in Sources */,
+				D8F1C63D2390516300CEC370 /* WeatherViewController.swift in Sources */,
 				D8C849E722D17AA5003624F8 /* ForecastViewController.swift in Sources */,
 				D8C849E922D17AB6003624F8 /* ForecastView.swift in Sources */,
 			);
@@ -882,6 +908,7 @@
 				D8E20AB4238C95A600F1A53A /* NiblessSplitViewController.swift in Sources */,
 				D8B7AFCD2217C99000527BC1 /* NIblessView.swift in Sources */,
 				D8C849F422D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift in Sources */,
+				D8F1C649239075F700CEC370 /* UIViewController+Containment.swift in Sources */,
 				D854058622C96C9900D80F03 /* ReusableView.swift in Sources */,
 				D840E5FC22C2CCC200C39AD4 /* FontBook.swift in Sources */,
 			);
@@ -901,6 +928,7 @@
 				D854058422C95C3A00D80F03 /* LocationListViewModel.swift in Sources */,
 				D8B7AFE82219090C00527BC1 /* WeatherError.swift in Sources */,
 				D896B55F221B803200979DBF /* WeatherAPI.swift in Sources */,
+				D8F1C63F2390537900CEC370 /* WeatherViewModel.swift in Sources */,
 				D8C849EB22D17AC4003624F8 /* ForecastViewModel.swift in Sources */,
 				D8B7AFE3221907A800527BC1 /* LocationDataStore.swift in Sources */,
 				D8B7AFDB2218EFA000527BC1 /* NavigationAction.swift in Sources */,
