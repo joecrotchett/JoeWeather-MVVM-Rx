@@ -11,7 +11,7 @@ import JoeWeatherKit
 import JoeWeatherUIKit
 import OpenWeatherKit
 
-public final class MainCoordinator: Coodinator {
+public final class MainCoordinator: Coordinator {
     
     public var window: UIWindow
     private let mainFactory: MainFactory
@@ -26,17 +26,22 @@ public final class MainCoordinator: Coodinator {
     }
     
     public func start() {
-        window.rootViewController = NiblessNavigationController()
+        let tabBarController = NiblessTabBarController()
+        let welcomeViewController = self.mainFactory.makeWelcomeViewController(delegate: self)
+        let locationsImage = UIImage(systemName: "umbrella")
+        welcomeViewController.tabBarItem = UITabBarItem(title: "Locations", image: locationsImage, tag: 0)
+        tabBarController.viewControllers = [welcomeViewController]
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
         
-        locationRepository.readLocations().done { [weak self] locations in
-            guard let self = self else { return }
-            if locations.isEmpty {
-                self.showWelcome()
-            } else {
-                self.show(locations: locations)
-            }
-        }.cauterize()
+//        locationRepository.readLocations().done { [weak self] locations in
+//            guard let self = self else { return }
+//            if locations.isEmpty {
+//                self.showWelcome()
+//            } else {
+//                self.show(locations: locations)
+//            }
+//        }.cauterize()
     }
     
     private func showWelcome() {

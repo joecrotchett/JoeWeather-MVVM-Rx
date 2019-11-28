@@ -9,7 +9,7 @@
 import UIKit
 import JoeWeatherUIKit
 
-public protocol Coodinator {
+public protocol Coordinator {
     var window: UIWindow { get set }
     func start()
 }
