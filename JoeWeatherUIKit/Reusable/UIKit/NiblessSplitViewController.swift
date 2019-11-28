@@ -1,14 +1,14 @@
 //
-//  NiblessNavigationController.swift
+//  File.swift
 //  JoeWeatherUIKit
 //
-//  Created by Joe Crotchett on 4/18/19.
+//  Created by Joe on 11/25/19.
 //  Copyright © 2019 Joe Crotchett. All rights reserved.
 //
 
 import UIKit
 
-open class NiblessNavigationController: UINavigationController {
+open class NiblessSplitViewController: UISplitViewController {
     
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -20,10 +20,6 @@ open class NiblessNavigationController: UINavigationController {
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    public override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
     }
     
     @available(*, unavailable,

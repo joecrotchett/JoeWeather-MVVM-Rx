@@ -18,15 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coordinator: MainCoordinator?
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
-        let navigationController = NiblessNavigationController()
-        factory = MainFactory()
-        coordinator = factory?.makeMainCoordinator(with: navigationController)
-        coordinator?.start()
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window!.rootViewController = navigationController
-        window!.makeKeyAndVisible()
         Theme.apply(to: window!)
+        
+        factory = MainFactory()
+        coordinator = factory?.makeMainCoordinator(with: window!)
+        coordinator?.start()
     }
 }
 

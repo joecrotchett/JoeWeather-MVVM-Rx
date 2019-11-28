@@ -10,6 +10,6 @@ import UIKit
 import JoeWeatherUIKit
 
 public protocol Coodinator {
-    var navigationController: UINavigationController { get set }
+    var window: UIWindow { get set }
     func start()
 }

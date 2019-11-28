@@ -13,19 +13,22 @@ import OpenWeatherKit
 
 public final class MainCoordinator: Coodinator {
     
-    public var navigationController: UINavigationController
+    public var window: UIWindow
     private let mainFactory: MainFactory
     private let locationRepository: LocationRepository
     
-    public init(navigationController: UINavigationController,
-                  locationRepository: LocationRepository,
-                         mainFactory: MainFactory) {
-        self.navigationController = navigationController
+    public init(window: UIWindow,
+    locationRepository: LocationRepository,
+           mainFactory: MainFactory) {
+        self.window = window
         self.mainFactory = mainFactory
         self.locationRepository = locationRepository
     }
     
     public func start() {
+        window.rootViewController = NiblessNavigationController()
+        window.makeKeyAndVisible()
+        
         locationRepository.readLocations().done { [weak self] locations in
             guard let self = self else { return }
             if locations.isEmpty {
@@ -38,24 +41,43 @@ public final class MainCoordinator: Coodinator {
     
     private func showWelcome() {
         let welcomeViewController = self.mainFactory.makeWelcomeViewController(delegate: self)
-        self.navigationController.setNavigationBarHidden(true, animated: false)
-        self.navigationController.pushViewController(welcomeViewController, animated: false)
+        let navigationController = NiblessNavigationController()
+        window.rootViewController = navigationController
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.pushViewController(welcomeViewController, animated: false)
     }
     
     private func show(locations: [Location]) {
-        let locationListViewController = mainFactory.makeLocationListViewController(locations: locations, delegate: self)
-        navigationController.viewControllers = [locationListViewController]
-        navigationController.setNavigationBarHidden(false, animated: false)
+        guard locations.isEmpty == false else { return }
+        let splitViewController = NiblessSplitViewController()
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.preferredPrimaryColumnWidthFraction = 0.5
+        splitViewController.maximumPrimaryColumnWidth = 300
+        splitViewController.delegate = self
+        let masterNav = NiblessNavigationController(rootViewController: mainFactory.makeLocationListViewController(locations: locations, delegate: self))
+        let detailNav = NiblessNavigationController(rootViewController: mainFactory.makeForecastViewController(for: locations.first!))
+        splitViewController.viewControllers = [masterNav, detailNav]
+        window.rootViewController = splitViewController
     }
     
     private func showForecast(for location: Location) {
+        guard let splitViewController = window.rootViewController as? NiblessSplitViewController else { return }
         let forecastViewController = mainFactory.makeForecastViewController(for: location)
-        navigationController.pushViewController(forecastViewController, animated: true)
+        splitViewController.showDetailViewController(forecastViewController, sender: nil)
     }
     
     private func showAddLocation() {
         let addLocationViewController = mainFactory.makeAddLocationViewController(delegate: self)
-        navigationController.present(addLocationViewController, animated: true, completion: nil)
+        guard let presenter = window.rootViewController else { return }
+        presenter.present(addLocationViewController, animated: true, completion: nil)
+    }
+}
+
+extension MainCoordinator: UISplitViewControllerDelegate {
+    public func splitViewController(_ splitViewController: UISplitViewController,
+                             collapseSecondary secondaryViewController: UIViewController,
+                             onto primaryViewController: UIViewController) -> Bool {
+        return true
     }
 }
 
@@ -85,10 +107,10 @@ extension MainCoordinator: AddLocationViewDelegate {
 
     public func updated(locations: [Location]) {
         show(locations: locations)
-        navigationController.dismiss(animated: true, completion: nil)
+     //   navigationController.dismiss(animated: true, completion: nil)
     }
     
     public func canceled() {
-        navigationController.dismiss(animated: true, completion: nil)
+//        navigationController.dismiss(animated: true, completion: nil)
     }
 }

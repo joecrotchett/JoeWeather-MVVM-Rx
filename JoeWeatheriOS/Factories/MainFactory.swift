@@ -39,10 +39,10 @@ public class MainFactory {
         self.sharedLocationRepository = makeLocationRepository()
     }
     
-    public func makeMainCoordinator(with navigationController: UINavigationController) -> MainCoordinator {
-        return MainCoordinator(navigationController: navigationController,
-                                 locationRepository: sharedLocationRepository,
-                                        mainFactory: self)
+    public func makeMainCoordinator(with window: UIWindow) -> MainCoordinator {
+        return MainCoordinator(window: window,
+                   locationRepository: sharedLocationRepository,
+                          mainFactory: self)
     }
     
     //MARK: Welcome Story

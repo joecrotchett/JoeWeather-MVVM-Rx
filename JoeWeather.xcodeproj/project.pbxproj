@@ -78,6 +78,7 @@
 		D8C849EF22D18D74003624F8 /* DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C849EE22D18D74003624F8 /* DayViewModel.swift */; };
 		D8C849F422D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C849F322D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift */; };
 		D8D1BE3E238349EB002F1F84 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8464DB8221663FF00ED68EB /* RxSwift.framework */; };
+		D8E20AB4238C95A600F1A53A /* NiblessSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E20AB3238C95A600F1A53A /* NiblessSplitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,7 @@
 		D8C849EE22D18D74003624F8 /* DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayViewModel.swift; sourceTree = "<group>"; };
 		D8C849F322D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorPresentation.swift"; sourceTree = "<group>"; };
 		D8D1BE3B238344A5002F1F84 /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
+		D8E20AB3238C95A600F1A53A /* NiblessSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiblessSplitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +487,7 @@
 		D8B7AFC02217ABF700527BC1 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				D8E20AB3238C95A600F1A53A /* NiblessSplitViewController.swift */,
 				D8B7AFC12217AC1700527BC1 /* NiblessViewController.swift */,
 				D8B7AFCC2217C99000527BC1 /* NIblessView.swift */,
 				D8B7AFCE2217CAF400527BC1 /* NiblessNavigationController.swift */,
@@ -872,6 +875,7 @@
 				D8B7AFC22217AC1700527BC1 /* NiblessViewController.swift in Sources */,
 				D854058822C96CE100D80F03 /* UITableView+ReusableView.swift in Sources */,
 				D840E60B22C6EDE100C39AD4 /* Theme.swift in Sources */,
+				D8E20AB4238C95A600F1A53A /* NiblessSplitViewController.swift in Sources */,
 				D8B7AFCD2217C99000527BC1 /* NIblessView.swift in Sources */,
 				D8C849F422D2E1D5003624F8 /* UIViewController+ErrorPresentation.swift in Sources */,
 				D854058622C96C9900D80F03 /* ReusableView.swift in Sources */,
@@ -1098,6 +1102,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = JoeWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1105,7 +1110,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joecrotchett.JoeWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USE_HEADERMAP = YES;
 			};
 			name = Debug;
@@ -1122,6 +1127,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = JoeWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1129,7 +1135,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joecrotchett.JoeWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USE_HEADERMAP = YES;
 			};
 			name = Release;
