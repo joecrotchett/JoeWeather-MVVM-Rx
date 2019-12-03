@@ -10,10 +10,17 @@ import UIKit
 import JoeWeatherUIKit
 
 class ContentStateViewController: NiblessViewController {
-    private var state: State?
+    private var state: ContentState?
     private var shownViewController: UIViewController?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if state == nil {
+            transition(to: .loading)
+        }
+    }
 
-    func transition(to newState: State) {
+    func transition(to newState: ContentState) {
         shownViewController?.remove()
         let vc = viewController(for: newState)
         add(vc)
@@ -23,7 +30,7 @@ class ContentStateViewController: NiblessViewController {
 }
 
 private extension ContentStateViewController {
-    func viewController(for state: State) -> UIViewController {
+    func viewController(for state: ContentState) -> UIViewController {
         switch state {
         case .loading:
             return LoadingViewController()
@@ -36,7 +43,7 @@ private extension ContentStateViewController {
 }
 
 extension ContentStateViewController {
-    enum State {
+    enum ContentState {
         case loading
         case failed(Error)
         case render(UIViewController)

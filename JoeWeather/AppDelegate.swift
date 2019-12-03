@@ -15,15 +15,16 @@ import JoeWeatherUIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var factory: MainFactory?
-    var coordinator: MainCoordinator?
+//    var coordinator: MainCoordinator?
+    var appCoordinator: AppCoordinator?
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: UIScreen.main.bounds)
         Theme.apply(to: window!)
         
         factory = MainFactory()
-        coordinator = factory?.makeMainCoordinator(with: window!)
-        coordinator?.start()
+        appCoordinator = factory!.makeAppCoordinator(with: window!)
+        appCoordinator?.start()
     }
 }
 

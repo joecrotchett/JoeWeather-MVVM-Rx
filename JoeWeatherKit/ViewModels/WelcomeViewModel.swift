@@ -7,23 +7,10 @@
 //
 
 import Foundation
-
-public protocol WelcomeViewDelegate {
-    func addLocation()
-}
+import RxSwift
 
 public final class WelcomeViewModel {
+    public let addLocationTapped = PublishSubject<Void>()
     
-    private let locationRepository: LocationRepository
-    private let delegate: WelcomeViewDelegate
-    
-    public init(locationRepository: LocationRepository, delegate: WelcomeViewDelegate) {
-        self.delegate = delegate
-        self.locationRepository = locationRepository
-    }
-    
-    @objc
-    public func addLocation() {
-        self.delegate.addLocation()
-    }
+    public init() {}
 }

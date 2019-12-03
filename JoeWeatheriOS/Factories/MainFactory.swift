@@ -39,27 +39,78 @@ public class MainFactory {
         self.sharedLocationRepository = makeLocationRepository()
     }
     
-    public func makeMainCoordinator(with window: UIWindow) -> MainCoordinator {
-        return MainCoordinator(window: window,
-                   locationRepository: sharedLocationRepository,
-                          mainFactory: self)
+//    public func makeMainCoordinator(with tabBarController: NiblessTabBarController) -> MainCoordinator {
+//        return MainCoordinator(tabBarController: tabBarController,
+//                             locationRepository: sharedLocationRepository,
+//                                    mainFactory: self)
+//    }
+    
+    public func makeAppCoordinator(with window: UIWindow) -> AppCoordinator {
+        return AppCoordinator(window: window,
+                  locationRepository: sharedLocationRepository,
+                         mainFactory: self)
+    }
+    
+    //MARK: Weather Story
+    
+    public func makeWeatherCoordinator(with tabBarController: NiblessTabBarController) -> WeatherCoordinator {
+        return WeatherCoordinator(tabBarController: tabBarController,
+                                locationRepository: sharedLocationRepository,
+                                       mainFactory: self)
+    }
+    
+    public func makeWeatherViewController(with viewModel: WeatherViewModel) -> WeatherViewController {
+//        let viewModel = WeatherViewModel(locationRepository: sharedLocationRepository)
+//        let viewController = WeatherViewController(viewModel: viewModel, delegate: delegate)
+//        return viewController
+        return WeatherViewController(viewModel: viewModel)
+    }
+    
+    public func makeWeatherViewModel() -> WeatherViewModel {
+        return WeatherViewModel(locationRepository: sharedLocationRepository)
     }
     
     //MARK: Welcome Story
     
-    public func makeWelcomeViewController(delegate: WelcomeViewDelegate) -> WelcomeViewController {
-        let viewModel = WelcomeViewModel(locationRepository: sharedLocationRepository, delegate: delegate)
-        let viewController = WelcomeViewController(viewModel: viewModel)
-        return viewController
+    public func makeWelcomeCoordinator(with weatherViewController: WeatherViewController) -> WelcomeCoordinator {
+        return WelcomeCoordinator(with: weatherViewController,
+                    locationRepository: sharedLocationRepository,
+                           mainFactory: self)
     }
     
-    public func makeAddLocationViewController(delegate: AddLocationViewDelegate) -> AddLocationViewController {
-        let viewModel = AddLocationViewModel(locationRepository: sharedLocationRepository, delegate: delegate)
-        let viewController = AddLocationViewController(viewModel: viewModel)
-        return viewController
+    public func makeWelcomeViewController(with viewModel: WelcomeViewModel) -> WelcomeViewController {
+        return WelcomeViewController(viewModel: viewModel)
+    }
+    
+    public func makeWelcomeViewModel() -> WelcomeViewModel {
+        return WelcomeViewModel()
+    }
+    
+    //MARK: Add Location Story
+    
+    public func makeAddLocationCoordinator(with presentingViewController: NiblessViewController) -> AddLocationCoordinator {
+        return AddLocationCoordinator(with: presentingViewController,
+                        locationRepository: sharedLocationRepository,
+                               mainFactory: self)
+    }
+    
+    public func makeAddLocationViewController(with viewModel: AddLocationViewModel) -> AddLocationViewController {
+        return AddLocationViewController(viewModel: viewModel)
+    }
+    
+    public func makeAddLocationViewModel(with delegate: AddLocationViewDelegate) -> AddLocationViewModel {
+        return AddLocationViewModel(locationRepository: sharedLocationRepository, delegate: delegate)
     }
     
     //MARK: Location List Story
+    
+    public func makeLocationsCoordinator(with locations: [Location],
+                                  weatherViewController: WeatherViewController) -> LocationsCoordinator {
+        return LocationsCoordinator(with: locations,
+                   weatherViewController: weatherViewController,
+                      locationRepository: sharedLocationRepository,
+                             mainFactory: self)
+    }
     
     public func makeLocationListViewController(locations: [Location], delegate: LocationListViewDelegate) -> LocationListViewController {
         let viewModel = LocationListViewModel(locations: locations, locationRepository: sharedLocationRepository, delegate: delegate)

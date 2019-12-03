@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RxSwift
 import JoeWeatherUIKit
 import JoeWeatherKit
+
 
 final class WelcomeView: NiblessView {
     
     private var viewModel: WelcomeViewModel
+    private let disposeBag = DisposeBag()
     private var hierarchyNotReady = true
     
     private let gradientImageView: UIImageView = {
@@ -177,6 +180,9 @@ final class WelcomeView: NiblessView {
     
     //MARK: Actions
     private func bindViewModel() {
-        addButton.addTarget(viewModel, action: #selector(WelcomeViewModel.addLocation),for: .touchUpInside)
+        addButton.rx.controlEvent([.touchUpInside])
+            .asDriver()
+            .drive(viewModel.addLocationTapped)
+            .disposed(by: disposeBag)
     }
 }

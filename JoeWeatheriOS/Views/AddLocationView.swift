@@ -91,7 +91,6 @@ final class AddLocationView: NiblessView {
     
     private func bindViewModel() {
         saveButton.addTarget(viewModel, action: #selector(AddLocationViewModel.save), for: .touchUpInside)
-        cancelButton.addTarget(viewModel, action: #selector(AddLocationViewModel.cancel), for: .touchUpInside)
         
         zipCodeField.rx.text
             .asDriver()
@@ -104,6 +103,11 @@ final class AddLocationView: NiblessView {
             .subscribe(onNext: { [weak self] in
                 self?.zipCodeField.resignFirstResponder()
             }).disposed(by: disposeBag)
+        
+        cancelButton.rx.controlEvent([.touchUpInside])
+            .asDriver()
+            .drive(viewModel.done)
+            .disposed(by: disposeBag)
     }
     
     private func constructHierarchy() {

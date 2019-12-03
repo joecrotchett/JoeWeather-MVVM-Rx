@@ -13,68 +13,42 @@ import OpenWeatherKit
 
 public final class MainCoordinator: Coordinator {
     
-    public var window: UIWindow
     private let mainFactory: MainFactory
     private let locationRepository: LocationRepository
+    private let tabBarController: NiblessTabBarController
     
-    public init(window: UIWindow,
-    locationRepository: LocationRepository,
-           mainFactory: MainFactory) {
-        self.window = window
+    public init(tabBarController: NiblessTabBarController,
+              locationRepository: LocationRepository,
+                     mainFactory: MainFactory) {
+        self.tabBarController = tabBarController
         self.mainFactory = mainFactory
         self.locationRepository = locationRepository
     }
     
     public func start() {
-        let tabBarController = NiblessTabBarController()
-        let welcomeViewController = self.mainFactory.makeWelcomeViewController(delegate: self)
+        let weatherViewController = self.mainFactory.makeWeatherViewController(delegate: self)
         let locationsImage = UIImage(systemName: "umbrella")
-        welcomeViewController.tabBarItem = UITabBarItem(title: "Locations", image: locationsImage, tag: 0)
-        tabBarController.viewControllers = [welcomeViewController]
-        window.rootViewController = tabBarController
-        window.makeKeyAndVisible()
-        
-//        locationRepository.readLocations().done { [weak self] locations in
-//            guard let self = self else { return }
-//            if locations.isEmpty {
-//                self.showWelcome()
-//            } else {
-//                self.show(locations: locations)
-//            }
-//        }.cauterize()
-    }
-    
-    private func showWelcome() {
-        let welcomeViewController = self.mainFactory.makeWelcomeViewController(delegate: self)
-        let navigationController = NiblessNavigationController()
-        window.rootViewController = navigationController
-        navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(welcomeViewController, animated: false)
+        weatherViewController.tabBarItem = UITabBarItem(title: "Weather", image: locationsImage, tag: 0)
+        tabBarController.viewControllers = [weatherViewController]
     }
     
     private func show(locations: [Location]) {
-        guard locations.isEmpty == false else { return }
-        let splitViewController = NiblessSplitViewController()
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.preferredPrimaryColumnWidthFraction = 0.5
-        splitViewController.maximumPrimaryColumnWidth = 300
-        splitViewController.delegate = self
-        let masterNav = NiblessNavigationController(rootViewController: mainFactory.makeLocationListViewController(locations: locations, delegate: self))
-        let detailNav = NiblessNavigationController(rootViewController: mainFactory.makeForecastViewController(for: locations.first!))
-        splitViewController.viewControllers = [masterNav, detailNav]
-        window.rootViewController = splitViewController
+//        guard locations.isEmpty == false else { return }
+//        let splitViewController = NiblessSplitViewController()
+//        splitViewController.preferredDisplayMode = .allVisible
+//        splitViewController.preferredPrimaryColumnWidthFraction = 0.5
+//        splitViewController.maximumPrimaryColumnWidth = 300
+//        splitViewController.delegate = self
+//        let masterNav = NiblessNavigationController(rootViewController: mainFactory.makeLocationListViewController(locations: locations, delegate: self))
+//        let detailNav = NiblessNavigationController(rootViewController: mainFactory.makeForecastViewController(for: locations.first!))
+//        splitViewController.viewControllers = [masterNav, detailNav]
+     
     }
     
     private func showForecast(for location: Location) {
-        guard let splitViewController = window.rootViewController as? NiblessSplitViewController else { return }
-        let forecastViewController = mainFactory.makeForecastViewController(for: location)
-        splitViewController.showDetailViewController(forecastViewController, sender: nil)
-    }
-    
-    private func showAddLocation() {
-        let addLocationViewController = mainFactory.makeAddLocationViewController(delegate: self)
-        guard let presenter = window.rootViewController else { return }
-        presenter.present(addLocationViewController, animated: true, completion: nil)
+//        guard let splitViewController = window.rootViewController as? NiblessSplitViewController else { return }
+//        let forecastViewController = mainFactory.makeForecastViewController(for: location)
+//        splitViewController.showDetailViewController(forecastViewController, sender: nil)
     }
 }
 
@@ -86,21 +60,49 @@ extension MainCoordinator: UISplitViewControllerDelegate {
     }
 }
 
+//MARK: Weather Story
+
+extension MainCoordinator: WeatherViewControllerDelegate {
+    public func weatherViewController(_ sender: WeatherViewController, didUpdate locations: [Location]) {
+        if locations.isEmpty {
+            let welcomeViewController = self.mainFactory.makeWelcomeViewController(delegate: self)
+            sender.render(contentVC: welcomeViewController)
+            tabBarController.tabBar.isHidden = true
+        } else {
+            let splitViewController = NiblessSplitViewController()
+            splitViewController.preferredDisplayMode = .allVisible
+            splitViewController.preferredPrimaryColumnWidthFraction = 0.5
+            splitViewController.maximumPrimaryColumnWidth = 300
+            splitViewController.delegate = self
+            let masterNav = NiblessNavigationController(rootViewController: mainFactory.makeLocationListViewController(locations: locations, delegate: self))
+            let detailNav = NiblessNavigationController(rootViewController: mainFactory.makeForecastViewController(for: locations.first!))
+            splitViewController.viewControllers = [masterNav, detailNav]
+            sender.render(contentVC: splitViewController)
+            tabBarController.tabBar.isHidden = false
+        }
+    }
+}
+
 //MARK: Welcome Story
 
-extension MainCoordinator: WelcomeViewDelegate {
+extension MainCoordinator: WelcomeViewControllerDelegate {
     
-    public func addLocation() {
-        showAddLocation()
+    public func welcomeViewControllerDidTapAddLocation(_ sender: WelcomeViewController) {
+        let addLocationViewController = mainFactory.makeAddLocationViewController(delegate: self)
+        sender.present(addLocationViewController, animated: true, completion: nil)
     }
 }
 
 //MARK: Location Story
 
 extension MainCoordinator: LocationListViewDelegate {
-
+    public func addLocation() {
+        
+    }
+    
+    
     public func listIsEmpty() {
-        showWelcome()
+       
     }
     
     public func selected(location: Location) {

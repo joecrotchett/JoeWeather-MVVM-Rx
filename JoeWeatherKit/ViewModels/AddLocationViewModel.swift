@@ -21,6 +21,8 @@ public final class AddLocationViewModel {
     private let locationRepository: LocationRepository
     
     // View State
+    public let done = PublishSubject<Void>()
+    public let locationSaved = PublishSubject<Void>()
     public let zipCodeInput = BehaviorSubject<String>(value: "")
     public let errorMessagesSubject = PublishSubject<ErrorMessage>()
     public var errorMessages: Observable<ErrorMessage> {
@@ -46,14 +48,9 @@ public final class AddLocationViewModel {
         }
     }
     
-    @objc
-    public func cancel() {
-        self.delegate.canceled()
-    }
-    
     // Private
     private func indicateLocationsUpdated(_ locations: [Location]) {
-        self.delegate.updated(locations: locations)
+        done.onNext(())
     }
     
     private func indicateErrorAddingLocation(_ error: Error) {
