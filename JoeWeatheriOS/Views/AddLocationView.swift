@@ -104,9 +104,8 @@ final class AddLocationView: NiblessView {
                 self?.zipCodeField.resignFirstResponder()
             }).disposed(by: disposeBag)
         
-        cancelButton.rx.controlEvent([.touchUpInside])
-            .asDriver()
-            .drive(viewModel.done)
+        cancelButton.rx.tap
+            .bind(to: viewModel.cancel)
             .disposed(by: disposeBag)
     }
     

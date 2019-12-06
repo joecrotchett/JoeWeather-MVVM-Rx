@@ -11,12 +11,14 @@ import RxSwift
 import JoeWeatherKit
 import JoeWeatherUIKit
 
-public final class WeatherCoordinator: BaseCoordinator {
+public final class WeatherCoordinator: BaseCoordinator<Void> {
     
     private let tabBarController: NiblessTabBarController
     private let mainFactory: MainFactory
     private let locationRepository: LocationRepository
     private let disposeBag = DisposeBag()
+    private let startWelcomeFlow = PublishSubject<Void>()
+    private let startLocationsFlow = PublishSubject<[Location]>()
     
     public init(tabBarController: NiblessTabBarController,
               locationRepository: LocationRepository,
@@ -26,34 +28,100 @@ public final class WeatherCoordinator: BaseCoordinator {
         self.locationRepository = locationRepository
     }
     
-    public override func start() {
+    public override func start() -> Observable<Void> {
+//        let weatherViewModel = mainFactory.makeWeatherViewModel()
+//        let weatherViewController = mainFactory.makeWeatherViewController(with: weatherViewModel)
+//        let locationsImage = UIImage(systemName: "umbrella")
+//        weatherViewController.tabBarItem = UITabBarItem(title: "Weather", image: locationsImage, tag: 0)
+//        tabBarController.setViewControllers([weatherViewController], animated: true)
+//
+//        weatherViewModel
+//            .locations
+//            .asDriver { _ in fatalError("Unexpected error from locations observable.") }
+//            .drive(onNext: { [weak self] locations in
+//                if locations.isEmpty {
+//                    self?.startWelcomeFlow(with: weatherViewController)
+//                } else {
+//                    self?.startLocationFlow(with: locations, weatherViewController: weatherViewController)
+//                }
+//            })
+//            .disposed(by: disposeBag)
+//
         let weatherViewModel = mainFactory.makeWeatherViewModel()
         let weatherViewController = mainFactory.makeWeatherViewController(with: weatherViewModel)
+        tabBarController.setViewControllers([weatherViewController], animated: true)
         let locationsImage = UIImage(systemName: "umbrella")
         weatherViewController.tabBarItem = UITabBarItem(title: "Weather", image: locationsImage, tag: 0)
-        tabBarController.setViewControllers([weatherViewController], animated: true)
+        let loadingViewController = LoadingViewController()
+        weatherViewController.render(contentVC: loadingViewController)
+        weatherViewController.tabBarController?.tabBar.isHidden = true
         
-        weatherViewModel
-            .locations
-            .asDriver { _ in fatalError("Unexpected error from locations observable.") }
-            .drive(onNext: { [weak self] locations in
+        startWelcomeFlow
+            .asObservable()
+            .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                if locations.isEmpty {
-                    let welcomeCoordinator = self.mainFactory.makeWelcomeCoordinator(with: weatherViewController)
-                    self.coordinate(to: welcomeCoordinator)
-                } else {
-                    let locationsCoordinator = self.mainFactory.makeLocationsCoordinator(with: locations,
-                                                                        weatherViewController: weatherViewController)
-                    self.coordinate(to: locationsCoordinator)
-                }
+                let welcomeCoordinator = self.mainFactory.makeWelcomeCoordinator(with: weatherViewController)
+                self.coordinate(to: welcomeCoordinator)
+                    .subscribe(onNext: { [weak self] result in
+                        switch result {
+                        case .success(let locations):
+                            self?.startLocationsFlow.onNext(locations)
+                        case .failure(_):
+                            break
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
+        
+        startLocationsFlow
+            .asObservable()
+            .subscribe(onNext: { [weak self] locations in
+                guard let self = self else { return }
+                let locationsCoordinator = self.mainFactory.makeLocationsCoordinator(with: locations,
+                                                                    weatherViewController: weatherViewController)
+                self.coordinate(to: locationsCoordinator)
+                    .subscribe(onNext: { [weak self] locations in
+                        if locations.isEmpty {
+                            self?.startWelcomeFlow.onNext(())
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
+        locationRepository.readLocations().done { [weak self] locations in
+            if locations.isEmpty {
+                self?.startWelcomeFlow.onNext(())
+            } else {
+                self?.startLocationsFlow.onNext(locations)
+            }
+        }.cauterize()
+
+        return Observable.never()
         
         // TODO: here you could check if user is signed in and show appropriate screen
 //        let coordinator = SignInCoordinator()
 //        coordinator.navigationController = self.navigationController
 //        self.start(coordinator: coordinator)
     }
+    
+//    //MARK: Private
+//    func startWelcomeFlow(with weatherViewController: WeatherViewController) -> Observable<Void> {
+//        let welcomeCoordinator = self.mainFactory.makeWelcomeCoordinator(with: weatherViewController)
+//        return self.coordinate(to: welcomeCoordinator).map { [weak self] _ in
+//            self?.startLocationFlow(with: [], weatherViewController: weatherViewController)
+//        }
+//    }
+//    
+//    func startLocationFlow(with locations: [Location],
+//                    weatherViewController: WeatherViewController) -> Observable<Void> {
+//        let locationsCoordinator = self.mainFactory.makeLocationsCoordinator(with: locations,
+//                                                            weatherViewController: weatherViewController)
+//        return = self.coordinate(to: locationsCoordinator).map { [weak self] _ in
+//            self?.startWelcomeFlow(with: weatherViewController)
+//        }
+//    }
 }
 
 //MARK: Weather Story

@@ -37,7 +37,7 @@ public final class WeatherViewController: NiblessViewController {
     }
     
     override public func viewWillAppear(_ animated: Bool) {
-        viewModel.readLocations()
+//        viewModel.readLocations()
     }
     
 //    func observeViewState() {

@@ -23,9 +23,9 @@ public final class WeatherViewModel {
     
     
     public func readLocations() {
-        locationRepository.readLocations().done { [weak self] locations in
-            self?.locationsSubject.onNext(locations)
-        }.cauterize()
+//        locationRepository.readLocations().done { [weak self] locations in
+//            self?.locationsSubject.onNext(locations)
+//        }.cauterize()
     }
     
     //        productLoader.loadProduct(withID: productID) { [weak self] result in

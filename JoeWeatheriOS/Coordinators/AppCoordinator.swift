@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 import JoeWeatherKit
 import JoeWeatherUIKit
 
-public final class AppCoordinator: BaseCoordinator {
+public final class AppCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
     private let mainFactory: MainFactory
@@ -24,12 +25,12 @@ public final class AppCoordinator: BaseCoordinator {
         self.locationRepository = locationRepository
     }
     
-    public override func start() {
+    public override func start() -> Observable<Void> {
         let tabBarController = NiblessTabBarController()
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     
         let weatherCoordinator = mainFactory.makeWeatherCoordinator(with: tabBarController)
-        coordinate(to: weatherCoordinator)
+        return coordinate(to: weatherCoordinator)
     }
 }

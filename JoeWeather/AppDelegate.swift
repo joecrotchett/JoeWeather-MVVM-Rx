@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 import JoeWeatheriOS
 import JoeWeatherUIKit
 import JoeWeatherUIKit
@@ -15,8 +16,8 @@ import JoeWeatherUIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var factory: MainFactory?
-//    var coordinator: MainCoordinator?
     var appCoordinator: AppCoordinator?
+    var disposeBag = DisposeBag()
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -25,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         factory = MainFactory()
         appCoordinator = factory!.makeAppCoordinator(with: window!)
         appCoordinator?.start()
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 }
 

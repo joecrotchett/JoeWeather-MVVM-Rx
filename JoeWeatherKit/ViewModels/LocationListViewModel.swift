@@ -19,10 +19,12 @@ public protocol LocationListViewDelegate {
 public final class LocationListViewModel {
     
     // Dependencies
-    private let delegate: LocationListViewDelegate
+//    private let delegate: LocationListViewDelegate
     private let locationRepository: LocationRepository
     
     // View State
+    public let didTapAddLocation = PublishSubject<Void>()
+    public let didSelectLocation = PublishSubject<Location>()
     public let locations = BehaviorSubject<[Location]>(value: [])
     public var navTitle: String {
         get {
@@ -31,9 +33,8 @@ public final class LocationListViewModel {
     }
     
     public init(locations: [Location],
-       locationRepository: LocationRepository,
-                 delegate: LocationListViewDelegate) {
-        self.delegate = delegate
+       locationRepository: LocationRepository) {
+//        self.delegate = delegate
         self.locationRepository = locationRepository
         update(locations: locations)
     }
@@ -47,7 +48,8 @@ public final class LocationListViewModel {
     
     @objc
     public func addLocationTapped() {
-        self.delegate.addLocation()
+        didTapAddLocation.onNext(())
+//        self.delegate.addLocation()
     }
     
     public func delete(location: Location) {
@@ -57,7 +59,7 @@ public final class LocationListViewModel {
     }
     
     public func selected(location: Location) {
-        self.delegate.selected(location: location)
+//        self.delegate.selected(location: location)
     }
     
     // Private 
@@ -67,7 +69,7 @@ public final class LocationListViewModel {
     
     private func indicateLocationsUpdated(_ locations: [Location]) {
         if locations.isEmpty {
-            self.delegate.listIsEmpty()
+//            self.delegate.listIsEmpty()
         }
         self.update(locations: locations)
     }

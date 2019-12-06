@@ -14,6 +14,8 @@ public protocol AddLocationViewDelegate {
     func canceled()
 }
 
+
+
 public final class AddLocationViewModel {
     
     // View Dependencies
@@ -21,8 +23,8 @@ public final class AddLocationViewModel {
     private let locationRepository: LocationRepository
     
     // View State
-    public let done = PublishSubject<Void>()
-    public let locationSaved = PublishSubject<Void>()
+    public let cancel = PublishSubject<Void>()
+    public let locationAdded = PublishSubject<[Location]>()
     public let zipCodeInput = BehaviorSubject<String>(value: "")
     public let errorMessagesSubject = PublishSubject<ErrorMessage>()
     public var errorMessages: Observable<ErrorMessage> {
@@ -50,7 +52,7 @@ public final class AddLocationViewModel {
     
     // Private
     private func indicateLocationsUpdated(_ locations: [Location]) {
-        done.onNext(())
+        locationAdded.onNext(locations)
     }
     
     private func indicateErrorAddingLocation(_ error: Error) {

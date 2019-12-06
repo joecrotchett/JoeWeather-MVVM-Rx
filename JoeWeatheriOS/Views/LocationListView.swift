@@ -42,7 +42,7 @@ final class LocationListView: NiblessView {
         
         viewModel.locations
             .asDriver(onErrorRecover: { _ in fatalError("Encountered unexpected view model zip codes observable error.") })
-            .drive(locations)
+            .drive((locations))
             .disposed(by: disposeBag)
         
         self.locations
@@ -111,7 +111,7 @@ extension LocationListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         do {
             let location = try locations.value()[indexPath.row]
-            self.viewModel.selected(location: location)
+            self.viewModel.didSelectLocation.onNext(location)
         } catch {
             fatalError("Error reading value from location subject.")
         }

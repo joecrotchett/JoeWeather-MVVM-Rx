@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import RxSwift
 import OpenWeatherKit
 
 public final class ForecastViewModel {
     
-    private let location: Location
+    public let location: Location
     
     public var navTitle: String {
         get {

@@ -112,10 +112,14 @@ public class MainFactory {
                              mainFactory: self)
     }
     
-    public func makeLocationListViewController(locations: [Location], delegate: LocationListViewDelegate) -> LocationListViewController {
-        let viewModel = LocationListViewModel(locations: locations, locationRepository: sharedLocationRepository, delegate: delegate)
+    public func makeLocationListViewController(with viewModel: LocationListViewModel,
+                                                     delegate: LocationListViewDelegate) -> LocationListViewController {
         let viewController = LocationListViewController(viewModel: viewModel)
         return viewController
+    }
+    
+    public func makeLocationListViewModel(with locations: [Location]) -> LocationListViewModel {
+        return LocationListViewModel(locations: locations, locationRepository: sharedLocationRepository)
     }
     
     public func makeForecastViewController(for location: Location) -> ForecastViewController {
