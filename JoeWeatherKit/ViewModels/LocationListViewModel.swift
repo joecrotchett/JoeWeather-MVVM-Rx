@@ -10,16 +10,9 @@ import Foundation
 import RxSwift
 import OpenWeatherKit
 
-public protocol LocationListViewDelegate {
-    func listIsEmpty()
-    func addLocation()
-    func selected(location: Location)
-}
-
 public final class LocationListViewModel {
     
     // Dependencies
-//    private let delegate: LocationListViewDelegate
     private let locationRepository: LocationRepository
     
     // View State
@@ -34,7 +27,6 @@ public final class LocationListViewModel {
     
     public init(locations: [Location],
        locationRepository: LocationRepository) {
-//        self.delegate = delegate
         self.locationRepository = locationRepository
         update(locations: locations)
     }
@@ -49,7 +41,6 @@ public final class LocationListViewModel {
     @objc
     public func addLocationTapped() {
         didTapAddLocation.onNext(())
-//        self.delegate.addLocation()
     }
     
     public func delete(location: Location) {
@@ -58,19 +49,12 @@ public final class LocationListViewModel {
             .cauterize()
     }
     
-    public func selected(location: Location) {
-//        self.delegate.selected(location: location)
-    }
-    
-    // Private 
+    // Private
     private func update(locations: [Location]) {
         self.locations.onNext(locations)
     }
     
     private func indicateLocationsUpdated(_ locations: [Location]) {
-        if locations.isEmpty {
-//            self.delegate.listIsEmpty()
-        }
         self.update(locations: locations)
     }
 }

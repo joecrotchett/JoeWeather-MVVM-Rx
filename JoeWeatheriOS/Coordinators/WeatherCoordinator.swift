@@ -26,8 +26,7 @@ public final class WeatherCoordinator: BaseCoordinator<Void> {
     }
     
     public override func start() -> Observable<Void> {
-        let weatherViewModel = WeatherViewModel(locationRepository: locationRepository)
-        let weatherViewController = WeatherViewController(viewModel: weatherViewModel)
+        let weatherViewController = WeatherViewController()
         tabBarController.setViewControllers([weatherViewController], animated: true)
         let locationsImage = UIImage(systemName: "umbrella")
         weatherViewController.tabBarItem = UITabBarItem(title: "Weather", image: locationsImage, tag: 0)

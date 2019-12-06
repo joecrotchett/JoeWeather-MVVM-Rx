@@ -16,10 +16,10 @@ import JoeWeatherUIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
     var appCoordinator: AppCoordinator?
     var locationRepository: LocationRepository?
-
     var disposeBag = DisposeBag()
     
     func applicationDidFinishLaunching(_ application: UIApplication) {
@@ -42,13 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return weatherAPI
     }
     
-    func makeLocationDataStore() -> LocationDataStore {
-        return FileDataStore()
-    }
-    
     func makeLocationRepository() -> LocationRepository {
         let weatherAPI = makeWeatherAPI()
-        let dataStore = makeLocationDataStore()
+        let dataStore = FileDataStore()
         let locationRepository = LocationRepository(dataStore: dataStore,
                                                   weatherAPI: weatherAPI)
         return locationRepository

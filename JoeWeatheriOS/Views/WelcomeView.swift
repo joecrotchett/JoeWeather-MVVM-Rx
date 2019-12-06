@@ -11,7 +11,6 @@ import RxSwift
 import JoeWeatherUIKit
 import JoeWeatherKit
 
-
 final class WelcomeView: NiblessView {
     
     private var viewModel: WelcomeViewModel
