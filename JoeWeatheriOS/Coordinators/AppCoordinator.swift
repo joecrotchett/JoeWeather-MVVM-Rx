@@ -14,14 +14,11 @@ import JoeWeatherUIKit
 public final class AppCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
-    private let mainFactory: MainFactory
     private let locationRepository: LocationRepository
     
     public init(window: UIWindow,
-    locationRepository: LocationRepository,
-           mainFactory: MainFactory) {
+    locationRepository: LocationRepository) {
         self.window = window
-        self.mainFactory = mainFactory
         self.locationRepository = locationRepository
     }
     
@@ -30,7 +27,8 @@ public final class AppCoordinator: BaseCoordinator<Void> {
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     
-        let weatherCoordinator = mainFactory.makeWeatherCoordinator(with: tabBarController)
+        let weatherCoordinator = WeatherCoordinator(tabBarController: tabBarController,
+                                                  locationRepository: locationRepository)
         return coordinate(to: weatherCoordinator)
     }
 }

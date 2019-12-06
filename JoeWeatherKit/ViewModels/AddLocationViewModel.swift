@@ -9,17 +9,9 @@
 import Foundation
 import RxSwift
 
-public protocol AddLocationViewDelegate {
-    func updated(locations: [Location])
-    func canceled()
-}
-
-
-
 public final class AddLocationViewModel {
     
     // View Dependencies
-    private let delegate: AddLocationViewDelegate
     private let locationRepository: LocationRepository
     
     // View State
@@ -32,8 +24,7 @@ public final class AddLocationViewModel {
     }
     
     // Initializers
-    public init(locationRepository: LocationRepository, delegate: AddLocationViewDelegate) {
-        self.delegate = delegate
+    public init(locationRepository: LocationRepository) {
         self.locationRepository = locationRepository
     }
     

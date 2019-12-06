@@ -11,7 +11,6 @@
 		D840E5AF22BF096000C39AD4 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D840E5AE22BF096000C39AD4 /* WelcomeViewController.swift */; };
 		D840E5B122BF09C400C39AD4 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D840E5B022BF09C400C39AD4 /* WelcomeViewModel.swift */; };
 		D840E5B322BF0A3000C39AD4 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D840E5B222BF0A3000C39AD4 /* WelcomeView.swift */; };
-		D840E5E522C1711B00C39AD4 /* MainFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D840E5E422C1711B00C39AD4 /* MainFactory.swift */; };
 		D840E5FC22C2CCC200C39AD4 /* FontBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = D840E5FB22C2CCC200C39AD4 /* FontBook.swift */; };
 		D840E60222C2D0A200C39AD4 /* SF-Pro-Display-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = D840E5FE22C2D0A100C39AD4 /* SF-Pro-Display-Heavy.otf */; };
 		D840E60322C2D0A200C39AD4 /* SF-Pro-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D840E5FF22C2D0A100C39AD4 /* SF-Pro-Display-Regular.otf */; };
@@ -167,7 +166,6 @@
 		D840E5AE22BF096000C39AD4 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		D840E5B022BF09C400C39AD4 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		D840E5B222BF0A3000C39AD4 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		D840E5E422C1711B00C39AD4 /* MainFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFactory.swift; sourceTree = "<group>"; };
 		D840E5FB22C2CCC200C39AD4 /* FontBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontBook.swift; sourceTree = "<group>"; };
 		D840E5FE22C2D0A100C39AD4 /* SF-Pro-Display-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.otf"; sourceTree = "<group>"; };
 		D840E5FF22C2D0A100C39AD4 /* SF-Pro-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.otf"; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 		D854058522C96C9900D80F03 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		D854058722C96CE100D80F03 /* UITableView+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ReusableView.swift"; sourceTree = "<group>"; };
 		D854058A22C96D4600D80F03 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
-		D86DA83722BED1980056322D /* MainCoodinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoodinator.swift; sourceTree = "<group>"; };
 		D86DA83922BED2150056322D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		D8806027228BAE5000F8012C /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 		D896B530221B7D1F00979DBF /* OpenWeatherKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenWeatherKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -306,14 +303,6 @@
 			path = Style;
 			sourceTree = "<group>";
 		};
-		D840E5E722C1776D00C39AD4 /* Factories */ = {
-			isa = PBXGroup;
-			children = (
-				D840E5E422C1711B00C39AD4 /* MainFactory.swift */,
-			);
-			path = Factories;
-			sourceTree = "<group>";
-		};
 		D840E5FD22C2D08500C39AD4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,7 +356,6 @@
 				D86DA83622BED1800056322D /* Coordinators */,
 				D8B7AFC32217AC6F00527BC1 /* ViewControllers */,
 				D8B7AFC92217C80B00527BC1 /* Views */,
-				D840E5E722C1776D00C39AD4 /* Factories */,
 				D8464D78221659E100ED68EB /* WeatheriOS.h */,
 				D8464D79221659E100ED68EB /* Info.plist */,
 			);
@@ -421,7 +409,6 @@
 		D86DA83622BED1800056322D /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
-				D86DA83722BED1980056322D /* MainCoodinator.swift */,
 				D86DA83922BED2150056322D /* Coordinator.swift */,
 				D8F1C64A239210C900CEC370 /* AppCoordinator.swift */,
 				D8F1C64C2392187100CEC370 /* WeatherCoordinator.swift */,
@@ -894,7 +881,6 @@
 				D86DA83A22BED2150056322D /* Coordinator.swift in Sources */,
 				D8C849ED22D18D14003624F8 /* DayView.swift in Sources */,
 				D8B7AFD12218872E00527BC1 /* LocationListViewController.swift in Sources */,
-				D840E5E522C1711B00C39AD4 /* MainFactory.swift in Sources */,
 				D8F1C64F239232DC00CEC370 /* WelcomeCoordinator.swift in Sources */,
 				D8F1C6472390756500CEC370 /* ErrorViewController.swift in Sources */,
 				D8B7AFF0221A65B900527BC1 /* AddLocationView.swift in Sources */,

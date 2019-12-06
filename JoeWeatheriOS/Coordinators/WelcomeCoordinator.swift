@@ -14,21 +14,18 @@ import JoeWeatherUIKit
 public final class WelcomeCoordinator: BaseCoordinator<Result<[Location], Error>> {
     
     private let weatherViewController: WeatherViewController
-    private let mainFactory: MainFactory
     private let locationRepository: LocationRepository
     private let disposeBag = DisposeBag()
     
     public init(with weatherViewController: WeatherViewController,
-                        locationRepository: LocationRepository,
-                               mainFactory: MainFactory) {
+                        locationRepository: LocationRepository) {
         self.weatherViewController = weatherViewController
-        self.mainFactory = mainFactory
         self.locationRepository = locationRepository
     }
     
     public override func start() -> Observable<Result<[Location], Error>>{
-        let welcomeViewModel = mainFactory.makeWelcomeViewModel()
-        let welcomeViewController = mainFactory.makeWelcomeViewController(with: welcomeViewModel)
+        let welcomeViewModel = WelcomeViewModel()
+        let welcomeViewController = WelcomeViewController(viewModel: welcomeViewModel)
         weatherViewController.render(contentVC: welcomeViewController)
         weatherViewController.tabBarController?.tabBar.isHidden = true
         
@@ -37,7 +34,8 @@ public final class WelcomeCoordinator: BaseCoordinator<Result<[Location], Error>
         welcomeViewModel.addLocationTapped
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                let addLocationCoordinator = self.mainFactory.makeAddLocationCoordinator(with: welcomeViewController)
+                let addLocationCoordinator = AddLocationCoordinator(with: welcomeViewController,
+                                                      locationRepository: self.locationRepository)
                 self.coordinate(to: addLocationCoordinator)
                     .subscribe(onNext: { result in
                         switch result {
@@ -53,18 +51,5 @@ public final class WelcomeCoordinator: BaseCoordinator<Result<[Location], Error>
             .disposed(by: disposeBag)
         
         return locationAdded.asObservable()
-    }
-
-}
-
-extension WelcomeCoordinator: AddLocationViewDelegate {
-
-    public func updated(locations: [Location]) {
-//        show(locations: locations)
-     //   navigationController.dismiss(animated: true, completion: nil)
-    }
-    
-    public func canceled() {
-//        navigationController.dismiss(animated: true, completion: nil)
     }
 }
