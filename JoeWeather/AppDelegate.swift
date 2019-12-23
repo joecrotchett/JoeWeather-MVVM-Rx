@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         Theme.apply(to: window!)
      
-        self.locationRepository = makeLocationRepository()
+        locationRepository = makeLocationRepository()
         appCoordinator = AppCoordinator(window: window!,
                             locationRepository: locationRepository!)
 
@@ -35,14 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .disposed(by: disposeBag)
     }
     
-    func makeWeatherAPI() -> WeatherAPI {
-        OpenWeatherMapKit.initialize(withAppId: "24e017c4af6df1a98c5ed63860f4847b")
-        let openWeatherAPI = OpenWeatherMapKit.instance
-        let weatherAPI = OpenWeatherAPI(openWeather: openWeatherAPI)
-        return weatherAPI
-    }
-    
     func makeLocationRepository() -> LocationRepository {
+        func makeWeatherAPI() -> WeatherAPI {
+            OpenWeatherMapKit.initialize(withAppId: "24e017c4af6df1a98c5ed63860f4847b")
+            let openWeatherAPI = OpenWeatherMapKit.instance
+            let weatherAPI = OpenWeatherAPI(openWeather: openWeatherAPI)
+            return weatherAPI
+        }
+        
         let weatherAPI = makeWeatherAPI()
         let dataStore = FileDataStore()
         let locationRepository = LocationRepository(dataStore: dataStore,
