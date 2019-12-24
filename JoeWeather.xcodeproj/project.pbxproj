@@ -622,7 +622,8 @@
 				D8464D592216573600ED68EB /* Frameworks */,
 				D8464D5A2216573600ED68EB /* Resources */,
 				D8464D82221659E100ED68EB /* Embed Frameworks */,
-				D8464DBB2216642000ED68EB /* ShellScript */,
+				D8464DBB2216642000ED68EB /* Carthage */,
+				D8AE809C23B1A1A7004D10D2 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -815,7 +816,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D8464DBB2216642000ED68EB /* ShellScript */ = {
+		D8464DBB2216642000ED68EB /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -828,6 +829,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
+			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -839,6 +841,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		D8AE809C23B1A1A7004D10D2 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
